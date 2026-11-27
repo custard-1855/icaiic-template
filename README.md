@@ -59,8 +59,8 @@ Overleaf で使うときは, `latex/` の中身と `refs.bib` を上げ, `main.t
 - カメラレディは IEEE PDF eXpress の検査に通した PDF を上げる (フォントの埋め込み, しおり・リンク無し).
   Typst 版の `submit.pdf` は手元の検査ではこれを満たすが, PDF eXpress そのものにはまだ通していない.
 
-## 同梱物のライセンス
+## ライセンス
 
-- `ieee.typ` — charged-ieee (Typst GmbH, MIT-0) を改変したもの
-- `fonts/` — TeX Gyre (GUST Font License)
-- `latex/IEEEtran.cls`, `latex/IEEEtran.bst` — IEEE 配布のもの (LPPL 1.3)
+MIT-0 (表示義務なし). このテンプレートで書いた原稿には何の義務も残らない.
+同梱している `latex/IEEEtran.cls`, `latex/IEEEtran.bst` (LPPL 1.3) と `fonts/` (GUST Font License) は別で, 無改変のまま置いてある.
+詳しくは [LICENSE](LICENSE).
