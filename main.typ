@@ -4,7 +4,7 @@
 
 #import "front.typ": front
 
-#show: ieee.with(..front, paper-size: "a4", bibliography: bibliography("refs.bib"))
+#show: ieee.with(..front, paper-size: "a4", bibliography: bibliography("latex/refs.bib"))
 
 #include "sections/1_introduction.typ"
 #include "sections/2_related.typ"

@@ -7,7 +7,7 @@
 | Typst 版 | ルート (`main.typ`) | `ieee.typ`. Typst Universe の charged-ieee 0.1.4 を公式の寸法に合わせた写し |
 | LaTeX 版 | `latex/` (`main.tex`) | IEEE 公式の `IEEEtran.cls` / `IEEEtran.bst` そのまま |
 
-文献 (`refs.bib`) は両方で共用する.
+文献 (`latex/refs.bib`) は両方で共用する.
 
 **どちらを使うか**: LaTeX 版は公式のクラスそのものなので, 体裁について心配が無い.
 Typst 版は同じ本文を組むと公式と同じ行で段とページが替わるところまで合わせてあるが, 下の「Typst 版と公式の差」が残り,
@@ -24,7 +24,7 @@ Typst 版は同じ本文を組むと公式と同じ行で段とページが替�
 
 - `front.typ` — 表題・著者・要旨・キーワード
 - `sections/*.typ` — 本文. 節を増減するときは `main.typ` の `#include` も直す
-- `refs.bib` — 文献. 本文では `@sample2024` のように引く
+- `latex/refs.bib` — 文献 (LaTeX 版と共用). 本文では `@sample2024` のように引く
 - `ieee.typ` — テンプレート本体. ふつうは触らない
 - `fonts/` — TeX Gyre Termes / Cursor. `build.sh` はここのフォントだけを使う
 
@@ -33,17 +33,30 @@ Typst 版は同じ本文を組むと公式と同じ行で段とページが替�
 
 ## LaTeX 版
 
-必要なもの: `latexmk` の入った TeX 環境 (TeX Live, MacTeX, TinyTeX のどれか).
+- `latex/main.tex` — 原稿. 表題から本文まで 1 ファイル
+- `latex/refs.bib` — 文献 (Typst 版と共用). 本文では `\cite{sample2024}` のように引く
+- `latex/bstctl.bib` — 文献欄の設定 (著者 7 名以上は筆頭著者 + et al.)
+
+`latex/` はこのフォルダだけで閉じているので, 組む環境は次のどちらでもよい.
+
+### Overleaf (何も入れない)
+
+`latex/` の中身をそのまま Overleaf のプロジェクトに上げる (フォルダを zip にして New Project → Upload Project).
+コンパイラは既定の pdfLaTeX のままでよい.
+
+### 手元で組む (TinyTeX)
+
+[TinyTeX](https://yihui.org/tinytex/) は数百 MB の小さな TeX Live. Quarto があれば `quarto install tinytex` でも入る.
+入れたあと, このテンプレートが使うパッケージを足す (既に入っているものは飛ばされる).
 
 ```sh
+tlmgr install latexmk bibtex cite algorithms amsmath amsfonts graphics graphics-cfg graphics-def \
+  epstopdf-pkg xcolor psnfss times courier helvetic l3backend url
 ./latex/build.sh    # latex/main.pdf
 ```
 
-- `latex/main.tex` — 原稿. 表題から本文まで 1 ファイル
-- `latex/bstctl.bib` — 文献欄の設定 (著者 7 名以上は筆頭著者 + et al.)
-- 文献はルートの `refs.bib` を読む. 本文では `\cite{sample2024}` のように引く
-
-Overleaf で使うときは, `latex/` の中身と `refs.bib` を上げ, `main.tex` の `\bibliography{bstctl,../refs}` を `{bstctl,refs}` に直す.
+MacTeX や TeX Live を全部入りで入れてあるなら, 何も足さずに `./latex/build.sh` が通る.
+自分でパッケージを `\usepackage` して `File '...sty' not found` と出たら, `tlmgr install <名前>` で足す.
 
 ## Typst 版と公式の差
 
